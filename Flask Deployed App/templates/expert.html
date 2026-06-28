@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block pagetitle %}
+Expert Disease & Supplement Submission
+{% endblock pagetitle %}
+
+{% block body %}
+<div class="container mt-5">
+    <div class="row justify-content-center mb-4">
+        <div class="col-lg-8 text-center">
+            <h2 class="text-success"><b>🌿 Expert Disease & Supplement Submission 🌿</b></h2>
+            <p>Submit details of crop diseases and the supplements to prevent them!</p>
+        </div>
+    </div>
+
+    <div class="row justify-content-center">
+        <div class="col-lg-10 col-md-12">
+            <div class="card shadow-lg rounded-lg">
+                <div class="card-body p-4">
+
+                    {% if success %}
+                    <div class="alert alert-success text-center">
+                        🌱 Thank you! Your details have been successfully submitted. 🌱
+                    </div>
+                    {% endif %}
+
+                    <form method="POST" enctype="multipart/form-data">
+
+                        <!-- Leaf / Crop Image -->
+                        <div class="mb-3">
+                            <label for="leaf_image" class="form-label">Leaf / Crop Image</label>
+                            <input class="form-control" type="file" id="leaf_image" name="leaf_image" required>
+                        </div>
+
+                        <!-- Disease Name -->
+                        <div class="mb-3">
+                            <label for="disease_name" class="form-label">Disease Name</label>
+                            <input type="text" class="form-control" id="disease_name" name="disease_name" placeholder="Enter disease name" required>
+                        </div>
+
+                        <!-- Disease Description -->
+                        <div class="mb-3">
+                            <label for="disease_description" class="form-label">Disease Description</label>
+                            <textarea class="form-control" id="disease_description" name="disease_description" rows="3" placeholder="Describe the disease" required></textarea>
+                        </div>
+
+                        <!-- Prevention / Steps -->
+                        <div class="mb-3">
+                            <label for="prevention" class="form-label">Prevention / Steps</label>
+                            <textarea class="form-control" id="prevention" name="prevention" rows="2" placeholder="Suggest preventive measures" required></textarea>
+                        </div>
+
+                        <hr>
+
+                        <!-- Supplement Name -->
+                        <div class="mb-3">
+                            <label for="supplement_name" class="form-label">Supplement Name</label>
+                            <input type="text" class="form-control" id="supplement_name" name="supplement_name" placeholder="Enter supplement name" required>
+                        </div>
+
+                        <!-- Supplement Image -->
+                        <div class="mb-3">
+                            <label for="supplement_image" class="form-label">Supplement Image</label>
+                            <input class="form-control" type="file" id="supplement_image" name="supplement_image" required>
+                        </div>
+
+                        <!-- Supplement Description -->
+                        <div class="mb-3">
+                            <label for="supplement_description" class="form-label">Supplement Description</label>
+                            <textarea class="form-control" id="supplement_description" name="supplement_description" rows="2" placeholder="Describe the supplement" required></textarea>
+                        </div>
+
+                        <!-- Submit Button -->
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-success btn-lg px-5">Submit 🌱</button>
+                        </div>
+
+                    </form>
+                </div>
+                <div class="card-footer text-center text-muted">
+                    Thank you for helping farmers with your expert knowledge!
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<style>
+    body {
+        background: linear-gradient(to right, #e0edd4ff, #c3e6deff);
+    }
+    .card {
+        border: none;
+    }
+    .form-label {
+        font-weight: 500;
+        color: #000000ff;
+    }
+    .btn-success {
+        background-color: #6b9b5192;
+        border: none;
+    }
+    .btn-success:hover {
+        background-color: #007eb4ff;
+    }
+</style>
+
+{% endblock body %}

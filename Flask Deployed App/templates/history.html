@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+{% block pagetitle %}Prediction History{% endblock %}
+
+{% block body %}
+
+<div class="page-header">
+  <div class="container">
+    <h1 class="page-header-title">📊 Prediction History</h1>
+    <p class="page-header-sub">Your last 20 plant disease detections</p>
+  </div>
+</div>
+
+<div class="container my-5">
+
+  {% if records %}
+  <div class="history-table fade-up">
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Image</th>
+          <th>Detection Result</th>
+          <th>Confidence</th>
+          <th>Status</th>
+          <th>Date & Time</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for r in records %}
+        <tr>
+          <td style="color:var(--text-light);font-size:0.8rem;">{{ loop.index }}</td>
+          <td>
+            <img src="{{ url_for('static', filename='uploads/' + r.image_path) }}"
+                 style="width:55px;height:45px;object-fit:cover;border-radius:8px;"
+                 onerror="this.style.display='none'"
+                 alt="leaf">
+          </td>
+          <td style="font-weight:500;color:var(--forest);">{{ r.label }}</td>
+          <td>
+            <div style="display:flex;align-items:center;gap:8px;">
+              <div style="width:70px;height:6px;background:#eee;border-radius:50px;overflow:hidden;">
+                <div style="height:100%;width:{{ r.confidence }}%;background:{% if r.confidence >= 75 %}var(--moss){% elif r.confidence >= 50 %}#f39c12{% else %}var(--danger){% endif %};border-radius:50px;"></div>
+              </div>
+              <span style="font-size:0.82rem;font-weight:600;">{{ r.confidence }}%</span>
+            </div>
+          </td>
+          <td>
+            {% if r.is_unknown %}
+              <span class="tag tag-unknown">Unknown</span>
+            {% elif 'Healthy' in r.label %}
+              <span class="tag tag-healthy">Healthy</span>
+            {% else %}
+              <span class="tag tag-disease">Disease</span>
+            {% endif %}
+          </td>
+          <td style="font-size:0.82rem;color:var(--text-light);">{{ r.timestamp }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+  {% else %}
+  <div class="text-center py-5 fade-up">
+    <div style="font-size:4rem;margin-bottom:1rem;">🌿</div>
+    <h3 style="font-family:'Playfair Display',serif;color:var(--forest);">No predictions yet</h3>
+    <p style="color:var(--text-light);margin-bottom:1.5rem;">Upload your first leaf image to get started.</p>
+    <a href="/" class="btn-primary-leaf" style="width:auto;padding:0.8rem 2rem;">
+      🔍 Start Detecting
+    </a>
+  </div>
+  {% endif %}
+
+</div>
+
+{% endblock %}

@@ -1,0 +1,168 @@
+{% extends 'base.html' %}
+{% block pagetitle %}Home{% endblock %}
+
+{% block body %}
+
+<!-- ========== HERO ========== -->
+<section class="hero">
+  <div class="hero-image-bg"></div>
+  <div class="hero-bg"></div>
+
+  <div class="container hero-content">
+    <div class="row align-items-center g-5">
+
+      <!-- Left: Text -->
+      <div class="col-lg-6 fade-up">
+        <div class="hero-badge">🤖 AI-Powered Detection</div>
+        <h1 class="hero-title">
+          Detect Plant<br>
+          <span class="accent">Diseases</span> Instantly
+        </h1>
+        <p class="hero-subtitle">
+          Upload a leaf image and let our deep learning model identify plant diseases with high accuracy — helping farmers protect crops before it's too late.
+        </p>
+
+        <div class="d-flex gap-3 flex-wrap">
+          <div class="d-flex align-items-center gap-2" style="color:rgba(255,255,255,0.7);font-size:0.85rem;">
+            <span style="color:var(--mint)">✓</span> 39 Disease Classes
+          </div>
+          <div class="d-flex align-items-center gap-2" style="color:rgba(255,255,255,0.7);font-size:0.85rem;">
+            <span style="color:var(--mint)">✓</span> Multiple Plant Types
+          </div>
+          <div class="d-flex align-items-center gap-2" style="color:rgba(255,255,255,0.7);font-size:0.85rem;">
+            <span style="color:var(--mint)">✓</span> Data Insights
+          </div>
+        </div>
+      </div>
+
+      <!-- Right: Upload Card -->
+      <div class="col-lg-6 fade-up delay-2">
+        <div class="upload-card">
+          <h3 class="upload-card-title">🔬 Analyze Your Leaf</h3>
+          <p class="upload-card-sub">Upload a clear photo of the leaf · JPG, PNG · Max 5MB</p>
+
+          <form action="/predict" method="POST" enctype="multipart/form-data" id="upload-form">
+
+            <!-- Drop Zone -->
+            <div class="drop-zone" id="drop-zone">
+              <span class="drop-zone-icon">🌿</span>
+              <p class="drop-zone-text">Drop your leaf image here</p>
+              <p class="drop-zone-hint">or click to browse files</p>
+              <input type="file" id="file-input" name="image" accept=".jpg,.jpeg,.png">
+            </div>
+
+            <!-- Preview -->
+            <div class="preview-container" id="preview-container">
+              <img id="preview-img" src="#" alt="Preview">
+              <button type="button" class="preview-remove" id="preview-remove" title="Remove">✕</button>
+            </div>
+
+            <!-- Camera Option -->
+            <div class="mt-3 d-flex gap-2 align-items-center">
+              <button type="button" id="camera-btn" class="btn-outline-leaf" style="font-size:0.82rem;padding:0.5rem 1.2rem;">
+                📷 Use Camera
+              </button>
+              <span style="font-size:0.78rem;color:var(--text-light);">or capture live from your device camera</span>
+            </div>
+
+            <!-- Camera Container -->
+            <div id="camera-container" style="display:none;margin-top:0.8rem;border-radius:var(--radius-sm);overflow:hidden;">
+              <video id="camera-feed" style="width:100%;border-radius:var(--radius-sm);" autoplay playsinline></video>
+              <div class="mt-2">
+                <button type="button" id="capture-btn" class="btn-primary-leaf" style="border-radius:8px;padding:0.6rem 1.5rem;">
+                  📸 Capture Photo
+                </button>
+              </div>
+            </div>
+
+            <div class="mt-3">
+              <button type="submit" class="btn-primary-leaf">
+                🔍 Detect Disease
+              </button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ========== FEATURES ========== -->
+<section class="features-section">
+  <div class="container">
+    <div class="text-center mb-5">
+      <p class="section-label">Why LeafMitra</p>
+      <h2 class="section-title">Powerful Features for<br>Smart Farming</h2>
+    </div>
+
+    <div class="row g-4">
+      <div class="col-md-3 col-sm-6 fade-up delay-1">
+        <div class="feature-card">
+          <span class="feature-icon">🧠</span>
+          <h4 class="feature-title">Deep Learning</h4>
+          <p class="feature-text">Custom CNN model trained on 87,000+ leaf images across 39 disease categories.</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 fade-up delay-2">
+        <div class="feature-card">
+          <span class="feature-icon">✨</span>
+          <h4 class="feature-title"><Data></Data> Insights</h4>
+          <p class="feature-text">Get detailed treatment advice and prevention tips powered by Expert data.</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 fade-up delay-3">
+        <div class="feature-card">
+          <span class="feature-icon">📄</span>
+          <h4 class="feature-title">PDF Reports</h4>
+          <p class="feature-text">Download a complete disease report with image, diagnosis, and treatment plan.</p>
+        </div>
+      </div>
+      <div class="col-md-3 col-sm-6 fade-up delay-4">
+        <div class="feature-card">
+          <span class="feature-icon">📊</span>
+          <h4 class="feature-title">Prediction History</h4>
+          <p class="feature-text">Track all past detections with confidence scores and timestamps.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ========== SUPPORTED PLANTS ========== -->
+<section class="plants-section">
+  <div class="container">
+    <div class="row align-items-center g-5">
+      <div class="col-lg-4">
+        <p class="section-label">Coverage</p>
+        <h2 class="section-title">39  Plants<br>Conditions</h2>
+        <p class="section-sub">Our model covers a wide range of crops commonly grown by Indian and global farmers.</p>
+      </div>
+      <div class="col-lg-8">
+        <div>
+          {% set plants = [
+            ('🍎','Apple'), ('🫐','Blueberry'), ('🍒','Cherry'), ('🌽','Corn'),
+            ('🍇','Grape'), ('🍊','Orange'), ('🍑','Peach'), ('🫑','Pepper Bell'),
+            ('🥔','Potato'), ('🍓','Raspberry'), ('🫘','Soybean'), ('🎃','Squash'),
+            ('🍓','Strawberry'), ('🍅','Tomato')
+          ] %}
+          {% for emoji, plant in plants %}
+          <span class="plant-chip">{{ emoji }} {{ plant }}</span>
+          {% endfor %}
+        </div>
+
+        <div class="mt-4 p-3 rounded-3" style="background:var(--success-light);border:1px solid rgba(45,125,45,0.15);">
+          <div class="d-flex align-items-center gap-2">
+            <span>💡</span>
+            <span style="font-size:0.85rem;color:var(--leaf);font-weight:500;">
+              If your plant is not in this list, the model will indicate "Unknown" with a helpful suggestion.
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% endblock %}

@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block pagetitle %}About{% endblock %}
+
+{% block body %}
+
+<div class="page-header">
+  <div class="container">
+    <h1 class="page-header-title">🌿 About LeafMitra</h1>
+    <p class="page-header-sub">AI Plant Disease Detection — Final Year Engineering Project</p>
+  </div>
+</div>
+
+<div class="container my-5">
+  <div class="row g-4">
+
+    <!-- Project Info -->
+    <div class="col-lg-8 fade-up">
+      <div class="info-card" style="padding:2.5rem;">
+        <h2 style="font-family:'Playfair Display',serif;color:var(--forest);margin-bottom:1rem;">About the Project</h2>
+        <p style="color:var(--text-mid);line-height:1.8;margin-bottom:1rem;">
+          <strong>LeafMitra</strong> is an AI-powered plant disease detection system developed as a Final Year Engineering Project by students of the Artificial Intelligence & Data Science department.
+        </p>
+        <p style="color:var(--text-mid);line-height:1.8;margin-bottom:1rem;">
+          The system uses a custom Convolutional Neural Network (CNN) trained on the PlantVillage dataset to identify diseases across multiple plant types and 39 disease categories. It integrates Google Gemini AI for detailed treatment insights and generates downloadable PDF reports.
+        </p>
+
+        <h4 style="font-family:'Playfair Display',serif;color:var(--forest);margin-top:1.5rem;margin-bottom:0.8rem;">Tech Stack</h4>
+        <div class="d-flex flex-wrap gap-2">
+          {% for tech in ['Python', 'Flask', 'PyTorch', 'CNN', 'Google Gemini', 'ReportLab', 'SQLite', 'Bootstrap 5', 'PIL / OpenCV'] %}
+          <span class="plant-chip">{{ tech }}</span>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+
+    <!-- Team -->
+    <div class="col-lg-4 fade-up delay-2">
+      <div class="info-card" style="padding:2rem;text-align:center;">
+        <div style="font-size:3rem;margin-bottom:1rem;">👨‍💻</div>
+        <h3 style="font-family:'Playfair Display',serif;color:var(--forest);">Team LeafMitra</h3>
+        <p style="font-size:0.88rem;color:var(--text-light);line-height:1.6;margin:1rem 0;">
+          B.E. students pursuing Artificial Intelligence & Data Science at Indira College of Engineering & Management, Pune.
+        </p>
+        <div style="text-align:left;margin-top:1rem;">
+          <p style="font-size:0.85rem;color:var(--text-mid);">📧 sarodevishal247@gmail.com</p>
+          <p style="font-size:0.85rem;color:var(--text-mid);">🏫 Indira College of Engineering & Management</p>
+        </div>
+      </div>
+
+      <div class="info-card mt-3" style="padding:2rem;text-align:center;">
+        <div style="font-size:2.5rem;margin-bottom:0.8rem;">🎓</div>
+        <h4 style="font-family:'Playfair Display',serif;color:var(--forest);font-size:1rem;">Project Guide</h4>
+        <p style="font-size:0.9rem;font-weight:600;color:var(--leaf);margin:0.5rem 0;">Dr. Manjusha Tatiya</p>
+        <p style="font-size:0.82rem;color:var(--text-light);">Head of AI & DS Dept.<br>Indira College of Engineering & Management</p>
+        <p style="font-size:0.82rem;margin-top:0.5rem;">📧 Manjusha.Tatiya@indiraicem.ac.in</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+{% endblock %}

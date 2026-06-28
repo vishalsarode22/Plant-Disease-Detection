@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block pagetitle %}
+Supplement Market
+{% endblock pagetitle %}
+
+{% block body %}
+<br>
+
+<!-- Page Heading -->
+<div class="row mb-5 text-center">
+    <div class="col-lg-10 mx-auto">
+        <h1 class="display-4" style="color: rgb(4, 54, 4); font-weight: 500;">
+            🛒 Supplement Market
+        </h1>
+        <p class="lead text-dark">
+            Recommended supplements & fertilizers for plant diseases
+        </p>
+    </div>
+</div>
+
+<!-- Market Items -->
+<div class="container">
+    <div class="row">
+
+        {% if market_items|length == 0 %}
+            <div class="col-12 text-center">
+                <h4 class="text-danger">No supplements available</h4>
+            </div>
+        {% endif %}
+
+        {% for item in market_items %}
+        <div class="col-md-4 mb-4">
+
+            <div class="card shadow h-100 border-0">
+
+                <!-- IMAGE -->
+                {% if item.image_url %}
+                    <img src="{{ url_for('static', filename=item.image_url) }}"
+                         class="card-img-top"
+                         alt="Supplement Image"
+                         style="height: 260px; object-fit: cover;">
+                {% else %}
+                    <img src="{{ url_for('static', filename='default.jpg') }}"
+                         class="card-img-top"
+                         alt="Default Image"
+                         style="height: 260px; object-fit: cover;">
+                {% endif %}
+
+                <!-- CARD BODY -->
+                <div class="card-body text-center">
+
+                    <!-- BADGE -->
+                    {% if item.buy_link == '#' %}
+                        <span class="badge bg-warning text-dark mb-2">
+                            Expert Submission
+                        </span>
+
+                    {% elif item.disease_name == 'Healthy' %}
+                        <span class="badge bg-success mb-2">
+                            Fertilizer
+                        </span>
+
+                    {% else %}
+                        <span class="badge bg-danger mb-2">
+                            Disease Supplement
+                        </span>
+                    {% endif %}
+
+                    <!-- TITLE -->
+                    <h5 class="card-title mt-2">
+                        {{ item.supplement_name }}
+                    </h5>
+
+                    <!-- DISEASE NAME -->
+                    <p class="card-text">
+                        <b>For:</b> {{ item.disease_name }}
+                    </p>
+
+                </div>
+
+                <!-- FOOTER -->
+                <div class="card-footer bg-white text-center">
+
+                    {% if item.buy_link and item.buy_link != '#' %}
+                        <a href="{{ item.buy_link }}"
+                           target="_blank"
+                           class="btn btn-success w-100"
+                           style="background-color:#05380b;">
+                            Buy Product
+                        </a>
+                    {% else %}
+                        <button class="btn btn-secondary w-100" disabled>
+                            Not for Sale
+                        </button>
+                    {% endif %}
+
+                </div>
+
+            </div>
+
+        </div>
+        {% endfor %}
+
+    </div>
+</div>
+
+{% endblock body %}
